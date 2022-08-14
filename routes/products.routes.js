@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -28,9 +28,7 @@ router.get('/:id', (req, res) => {
 
     res.status(200).json(product);
   } catch (error) {
-    res.status(404).json({
-      message: error.message,
-    });
+    next(error);
   }
 });
 
