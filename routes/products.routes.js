@@ -21,32 +21,50 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const product = service.findById(id);
+    const product = service.findById(id);
 
-  res.status(200).json(product);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
 });
 
 router.patch('/:id', (req, res) => {
-  const { id } = req.params;
-  const body = req.body;
+  try {
+    const { id } = req.params;
+    const body = req.body;
 
-  const product = service.update(id, body);
-  res.status(200).json({
-    message: 'updated',
-    data: product,
-  });
+    const product = service.update(id, body);
+    res.status(200).json({
+      message: 'updated',
+      data: product,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
 });
 
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  const product = service.delete(id);
+  try {
+    const { id } = req.params;
+    const product = service.delete(id);
 
-  res.status(200).json({
-    message: 'deleted',
-    product,
-  });
+    res.status(200).json({
+      message: 'deleted',
+      product,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
 });
 
 module.exports = router;
