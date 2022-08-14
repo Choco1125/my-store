@@ -22,11 +22,13 @@ router.get('/', (req, res) => {
   res.json(products);
 });
 
-//Route with paramas
+router.post('/', (req, res) => {
+  const body = req.body;
 
-//Specific routes are firts and dinamic after
-router.get('/filter', (req, res) => {
-  res.send("I'm a filter");
+  res.json({
+    message: 'created',
+    data: body,
+  });
 });
 
 router.get('/:id', (req, res) => {
@@ -36,6 +38,13 @@ router.get('/:id', (req, res) => {
     name: 'Product 1',
     price: 1000,
   });
+});
+
+//Route with paramas
+
+//Specific routes are firts and dinamic after
+router.get('/filter', (req, res) => {
+  res.send("I'm a filter");
 });
 
 router.get('/categories/:categoryId/products/:productId', (req, res) => {
