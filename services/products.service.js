@@ -19,7 +19,16 @@ class ProductsService {
     }
   }
 
-  create() {}
+  create(data) {
+    const product = {
+      id: faker.datatype.uuid(),
+      ...data,
+    };
+
+    this.products.push(product);
+
+    return product;
+  }
 
   find() {
     return this.products;
@@ -29,8 +38,30 @@ class ProductsService {
     return this.products.find((product) => product.id === id);
   }
 
-  update() {}
-  delete() {}
+  update(id, changes) {
+    const index = this.products.findIndex((product) => product.id === id);
+
+    if (index === -1) throw new Error(`Product ${id} not found`);
+
+    const product = this.products[index];
+
+    this.products[index] = {
+      ...product,
+      ...changes,
+    };
+
+    return this.products[index];
+  }
+
+  delete(id) {
+    const index = this.products.findIndex((product) => product.id === id);
+
+    if (index === -1) throw new Error(`Product ${id} not found`);
+
+    this.products.splice(index, 1);
+
+    return { id };
+  }
 }
 
 module.exports = ProductsService;
