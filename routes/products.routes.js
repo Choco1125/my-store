@@ -19,13 +19,13 @@ router.get('/', (req, res) => {
     });
   }
 
-  res.json(products);
+  res.status(200).json(products);
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
 
-  res.json({
+  res.status(201).json({
     message: 'created',
     data: body,
   });
@@ -33,7 +33,10 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
+
+  if (id === '999') return res.status(404).json({ message: 'Not found' });
+
+  res.status(200).json({
     id,
     name: 'Product 1',
     price: 1000,
@@ -44,7 +47,7 @@ router.patch('/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
 
-  res.json({
+  res.status(200).json({
     message: 'updated',
     data: body,
     id,
@@ -54,7 +57,7 @@ router.patch('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  res.json({
+  res.status(200).json({
     message: 'deleted',
     id,
   });
