@@ -32,7 +32,7 @@ router.get('/:id', (req, res, next) => {
   }
 });
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -43,13 +43,11 @@ router.patch('/:id', (req, res) => {
       data: product,
     });
   } catch (error) {
-    res.status(404).json({
-      message: error.message,
-    });
+    next(error);
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
   try {
     const { id } = req.params;
     const product = service.delete(id);
@@ -59,9 +57,7 @@ router.delete('/:id', (req, res) => {
       product,
     });
   } catch (error) {
-    res.status(404).json({
-      message: error.message,
-    });
+    next(error);
   }
 });
 
