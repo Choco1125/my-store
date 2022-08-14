@@ -3,7 +3,6 @@ const { faker } = require('@faker-js/faker');
 
 const router = Router();
 
-//Route returning json
 router.get('/', (req, res) => {
   const products = [];
 
@@ -60,23 +59,6 @@ router.delete('/:id', (req, res) => {
   res.status(200).json({
     message: 'deleted',
     id,
-  });
-});
-
-//Route with paramas
-
-//Specific routes are firts and dinamic after
-router.get('/filter', (req, res) => {
-  res.send("I'm a filter");
-});
-
-router.get('/categories/:categoryId/products/:productId', (req, res) => {
-  const { categoryId, productId } = req.params;
-  res.json({
-    categoryId,
-    productId,
-    name: 'Product 1',
-    price: 1000,
   });
 });
 
