@@ -5,7 +5,7 @@ const USER_TABLE = 'users';
 const userSchema = {
   id: {
     allowNull: false,
-    autoIncremente: true,
+    autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
