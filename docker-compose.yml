@@ -18,3 +18,25 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - 5050:80
+  mysql:
+    image: mysql:5
+    environment:
+      - MYSQL_DATABASE=my_store
+      - MYSQL_USER=momon
+      - MYSQL_ROOT_PASSWORD=momoncode
+      - MYSQL_PORT=3306
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=momoncode
+    ports:
+      - 8080:80
+    links:
+      - mysql
