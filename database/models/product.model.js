@@ -48,7 +48,7 @@ const ProductSchema = {
 
 class Product extends Model {
   static associate(models) {
-    this.belongsToMany(models.Category, {
+    this.belongsTo(models.Category, {
       as: 'category',
     });
   }
