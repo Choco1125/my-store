@@ -10,21 +10,33 @@ const {
 const router = Router();
 const service = new ProductsService();
 
-router.get('/', (req, res) => {
-  const products = service.find();
+router.get('/', async (req, res, next) => {
+  try {
+    const products = await service.find();
 
-  res.status(200).json(products);
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.post('/', validatorHandler(createProductSchema, 'body'), (req, res) => {
-  const body = req.body;
-  const product = service.create(body);
+router.post(
+  '/',
+  validatorHandler(createProductSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const product = await service.create(body);
 
-  res.status(201).json({
-    message: 'created',
-    data: product,
-  });
-});
+      res.status(201).json({
+        message: 'created',
+        data: product,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.get(
   '/:id',
