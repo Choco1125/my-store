@@ -28,10 +28,17 @@ class ProductsService {
     return product;
   }
 
-  async find() {
-    const products = await models.Product.findAll({
+  async find(query) {
+    const options = {
       include: ['category'],
-    });
+    };
+
+    if (query.limit && query.offset) {
+      options.limit = query.limit;
+      options.offset = query.offset;
+    }
+
+    const products = await models.Product.findAll(options);
     return products;
   }
 
