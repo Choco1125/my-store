@@ -7,7 +7,7 @@ const localStrategy = new Strategy(
   { usernameField: 'email', passwordField: 'password' },
   async (email, password, done) => {
     try {
-      const user = await service.getUser(email);
+      const user = await service.getUser(email, password);
 
       done(null, user);
     } catch (error) {
