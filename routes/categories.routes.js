@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const apiCache = require('apicache');
 
 const CategoryService = require('./../services/category.service');
 const validatorHandler = require('./../middlewares/validator.handler');
@@ -12,11 +13,13 @@ const { checkAdminRole, checkRoles } = require('./../middlewares/auth.handler');
 
 const router = express.Router();
 const service = new CategoryService();
+const cache = apiCache.middleware;
 
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   checkRoles('admin', 'customer'),
+  cache('2 minutes'),
   async (req, res, next) => {
     try {
       const categories = await service.find();

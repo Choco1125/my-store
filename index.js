@@ -9,6 +9,7 @@ const {
   ormErrorHandler,
 } = require('./middlewares/error.handler');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
 const port = 3000;
@@ -26,6 +27,8 @@ const options = {
   },
 };
 app.use(cors(options));
+app.use(helmet());
+app.disable('x-powered-by');
 
 require('./utils/auth');
 
